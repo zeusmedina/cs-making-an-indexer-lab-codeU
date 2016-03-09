@@ -158,7 +158,7 @@ In the subdirectory `javacs-lab06/src/com/flatironschool/javacs` you'll find the
 
 Also, in `javacs-lab06`, you'll find the Ant build file `build.xml`.
 
-*  In `javacs-lab05`, run `ant build` to compile the source files.  Then run `ant TermCounter`, it should run the code from the previous section and print a list of terms and their counts.  The output should look something like this
+*  In `javacs-lab06`, run `ant build` to compile the source files.  Then run `ant TermCounter`, it should run the code from the previous section and print a list of terms and their counts.  The output should look something like this
 
         genericservlet, 2
         configurations, 1
