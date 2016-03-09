@@ -238,16 +238,16 @@ Your job is to fill in `indexPage`, which takes a URL (as a String) and an `Elem
 
 *  When it's working, run `ant Index` again, and you should see output like this:
 
-    ...
-    configurations
-        https://en.wikipedia.org/wiki/Programming_language 1
-        https://en.wikipedia.org/wiki/Java_(programming_language) 1
-    claimed
-        https://en.wikipedia.org/wiki/Java_(programming_language) 1
-    servletresponse
-        https://en.wikipedia.org/wiki/Java_(programming_language) 2
-    occur
-        https://en.wikipedia.org/wiki/Java_(programming_language) 2
+        ...
+        configurations
+            https://en.wikipedia.org/wiki/Programming_language 1
+            https://en.wikipedia.org/wiki/Java_(programming_language) 1
+        claimed
+            https://en.wikipedia.org/wiki/Java_(programming_language) 1
+        servletresponse
+            https://en.wikipedia.org/wiki/Java_(programming_language) 2
+        occur
+            https://en.wikipedia.org/wiki/Java_(programming_language) 2
 
 The order of the search terms might be different when you run it.
 
