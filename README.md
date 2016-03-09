@@ -39,7 +39,7 @@ As you might expect by now, Java provides a `Set` interface that defines the ope
 
 * `add(element)`:  This method adds an element to a set; if the element is already in the set, it has no effect.
 
-* `contains(element)`:  This method hecks whether the given element is in the set.
+* `contains(element)`:  This method checks whether the given element is in the set.
 
 Again, Java provides several implementation of `Set`; the ones we will focus on are `HashSet` and `TreeSet`.  We'll come back to them later.
 
@@ -52,10 +52,10 @@ Now that we've designed our data structures from the top down, we'll implement t
 
 ```java
 public class TermCounter {
-	
+
 	private Map<String, Integer> map;
 	private String label;
-	
+
 	public TermCounter(String label) {
 		this.label = label;
 		this.map = new HashMap<String, Integer>();
@@ -90,7 +90,7 @@ On the other hand, `get` actually does some work.  When you call `get` on a `Ter
 	}
 ```
 
-If the term has not been seen before, `get` returns 0; we add one, then use `put` to add a new key-value pair to the map.  If the term is already in the map, we get the old count, add one, and then store the new count, which replaces the old value.
+If the term has not been seen before, `get` returns 0; we add 1, then use `put` to add a new key-value pair to the map.  If the term is already in the map, we get the old count, add 1, and then store the new count, which replaces the old value.
 
 In addition, `TermCounter` provides these other methods to help with indexing Web pages:
 
@@ -111,7 +111,7 @@ In addition, `TermCounter` provides these other methods to help with indexing We
 
 	public void countText(String text) {
 		String[] array = text.replaceAll("\\pP", " ").toLowerCase().split("\\s+");
-		
+
 		for (int i=0; i<array.length; i++) {
 			String term = array[i];
 			countTerm(term);
@@ -131,7 +131,7 @@ Finally, here's an example that demonstrates how `TermCounter` is used:
         String url = "https://en.wikipedia.org/wiki/Java_(programming_language)";
 	WikiFetcher wf = new WikiFetcher();
 	Elements paragraphs = wf.fetchWikipedia(url);
-		
+
 	TermCounter counter = new TermCounter(url);
 	counter.countElements(paragraphs);
 	counter.printCounts();
@@ -149,14 +149,14 @@ When you check out the repository for this lab, you should find a file structure
 In the subdirectory `javacs-lab06/src/com/flatironschool/javacs` you'll find the source files for this lab:
 
     *  `TermCounter.java` contains the code from the previous section.
-    
+
     *  `Index.java` contains the class definition for the next part of this lab.
-    
+
     *  `WikiFetcher.java` contains the class we used in the previous lab to download and parse Web pages.
-    
+
     *  `WikiNodeIterable.java` contains the class we used to traverse the nodes in a DOM tree.
 
-Also, in `javacs-lab06`, you'll find the Ant build file `build.xml`.  
+Also, in `javacs-lab06`, you'll find the Ant build file `build.xml`.
 
 *  In `javacs-lab05`, run `ant build` to compile the source files.  Then run `ant TermCounter`, it should run the code from the previous section and print a list of terms and their counts.  The output should look something like this
 
@@ -182,7 +182,7 @@ For the second part of the lab, we'll present our implementation of an `Index` o
 public class Index {
 
 	private Map<String, Set<TermCounter>> index = new HashMap<String, Set<TermCounter>>();
-	
+
 	public void add(String term, TermCounter tc) {
 		Set<TermCounter> set = get(term);
 
@@ -213,7 +213,7 @@ This data structure is moderately complicated.  To review, an `Index` object con
 		// loop through the search terms
 		for (String term: keySet()) {
 			System.out.println(term);
-			
+
 			// for each term, print the pages where it appears and the count
 			Set<TermCounter> tcs = get(term);
 			for (TermCounter tc: tcs) {
@@ -224,7 +224,7 @@ This data structure is moderately complicated.  To review, an `Index` object con
 	}
 ```
 
-The outer loop iterates the search terms.  The inner loop iterates the `TermCounter` objects that represent the pages where the search term appears.  
+The outer loop iterates the search terms.  The inner loop iterates the `TermCounter` objects that represent the pages where the search term appears.
 
 *  Run `ant build` to make sure your source code is compiled, and then run `ant Index`.  It downloads two Wikipedia pages, indexes them, and prints the results; but when you run it you won't see any output because we've left one of the methods empty.
 
@@ -232,7 +232,7 @@ Your job is to fill in `indexPage`, which takes a URL (as a String) and an `Elem
 
 	public void indexPage(String url, Elements paragraphs) {
 		// make a TermCounter and count the terms in the paragraphs
-		
+
 		// for each term in the TermCounter, add the TermCounter to the index
 	}
 
@@ -255,10 +255,3 @@ Also, run `ant test2` to confirm that this part of the lab is complete.
 
 
 This lab involved more reading that some of the others, and not as much programming.  But we hope you learned a lot.  Congratulations on getting to the end!
-
-
-
-
-
- 
-
