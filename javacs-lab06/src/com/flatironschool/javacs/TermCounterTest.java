@@ -29,7 +29,7 @@ public class TermCounterTest {
 		Elements paragraphs = wf.readWikipedia(url);
 		
 		counter = new TermCounter(url.toString());
-		counter.countElements(paragraphs);
+		counter.processElements(paragraphs);
 	}
 
 	@Test

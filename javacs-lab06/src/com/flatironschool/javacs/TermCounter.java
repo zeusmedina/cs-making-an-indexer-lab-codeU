@@ -48,9 +48,9 @@ public class TermCounter {
 	 * 
 	 * @param paragraphs
 	 */
-	public void countElements(Elements paragraphs) {
+	public void processElements(Elements paragraphs) {
 		for (Node node: paragraphs) {
-			countTree(node);
+			processTree(node);
 		}
 	}
 	
@@ -59,12 +59,12 @@ public class TermCounter {
 	 * 
 	 * @param root
 	 */
-	public void countTree(Node root) {
+	public void processTree(Node root) {
 		// NOTE: we could use select to find the TextNodes, but since
 		// we already have a tree iterator, let's use it.
 		for (Node node: new WikiNodeIterable(root)) {
 			if (node instanceof TextNode) {
-				countText(((TextNode) node).text());
+				processText(((TextNode) node).text());
 			}
 		}
 	}
@@ -74,13 +74,13 @@ public class TermCounter {
 	 * 
 	 * @param text  The text to process.
 	 */
-	public void countText(String text) {
+	public void processText(String text) {
 		// replace punctuation with spaces, convert to lower case, and split on whitespace
 		String[] array = text.replaceAll("\\pP", " ").toLowerCase().split("\\s+");
 		
 		for (int i=0; i<array.length; i++) {
 			String term = array[i];
-			countTerm(term);
+			incrementTermCount(term);
 		}
 	}
 
@@ -89,7 +89,7 @@ public class TermCounter {
 	 * 
 	 * @param term
 	 */
-	public void countTerm(String term) {
+	public void incrementTermCount(String term) {
 		// System.out.println(term);
 		put(term, get(term) + 1);
 	}
@@ -146,7 +146,7 @@ public class TermCounter {
 		Elements paragraphs = wf.fetchWikipedia(url);
 		
 		TermCounter counter = new TermCounter(url.toString());
-		counter.countElements(paragraphs);
+		counter.processElements(paragraphs);
 		counter.printCounts();
 	}
 }
