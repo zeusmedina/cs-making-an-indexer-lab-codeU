@@ -128,13 +128,13 @@ In addition, `TermCounter` provides these other methods to help with indexing We
 Finally, here's an example that demonstrates how `TermCounter` is used:
 
 ```java
-        String url = "https://en.wikipedia.org/wiki/Java_(programming_language)";
-	WikiFetcher wf = new WikiFetcher();
-	Elements paragraphs = wf.fetchWikipedia(url);
+    String url = "https://en.wikipedia.org/wiki/Java_(programming_language)";
+    WikiFetcher wf = new WikiFetcher();
+    Elements paragraphs = wf.fetchWikipedia(url);
 
-	TermCounter counter = new TermCounter(url);
-	counter.processElements(paragraphs);
-	counter.printCounts();
+    TermCounter counter = new TermCounter(url);
+    counter.processElements(paragraphs);
+    counter.printCounts();
 ```
 
 This example uses a `WikiFetcher` to download a page from Wikipedia and parse the main text.  Then it creates a `TermCounter` and uses it to count the words in the page.
