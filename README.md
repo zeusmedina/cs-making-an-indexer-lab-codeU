@@ -3,9 +3,9 @@
 ## Learning goals
 
 1.  Understand the design of a Web indexer and fill in missing methods.
-2.  Apply a process for selecting data structures.
-3.  Be familiar with the `Map` interface in Java and the `HashMap` implementation.
-4.  Be familiar with the `Set` interface and the `HashSet` implementation.
+2.  Choose appropriate data structures from the Java Collections Framework (JCF).
+3.  Use Java's `Map` interface and the `HashMap` implementation.
+4.  Use the `Set` interface and the `HashSet` implementation.
 
 
 ## Overview
@@ -82,10 +82,10 @@ To implement the mapping, I chose `HashMap`, which is the most commonly-used `Ma
 
 `put` is just a **wrapper method**; when you call `put` on a `TermCounter`, it calls `put` on the embedded map.
 
-On the other hand, `get` actually does some work.  When you call `get` on a `TermCounter`, it calls `get` on the map, and then it checks the result.  If the term does not appear in the map, `TermCount.get` returns 0.  Defining `get` this way makes it easier to write `countTerm`, which takes a term and increases by one the counter associated with that term.
+On the other hand, `get` actually does some work.  When you call `get` on a `TermCounter`, it calls `get` on the map, and then it checks the result.  If the term does not appear in the map, `TermCount.get` returns 0.  Defining `get` this way makes it easier to write `incrementTermCount`, which takes a term and increases by one the counter associated with that term.
 
 ```java
-	public void countTerm(String term) {
+	public void incrementTermCount(String term) {
 		put(term, get(term) + 1);
 	}
 ```
@@ -95,35 +95,35 @@ If the term has not been seen before, `get` returns 0; we add 1, then use `put` 
 In addition, `TermCounter` provides these other methods to help with indexing Web pages:
 
 ```java
-	public void countElements(Elements paragraphs) {
+	public void processElements(Elements paragraphs) {
 		for (Node node: paragraphs) {
-			countTree(node);
+			processTree(node);
 		}
 	}
 
-	public void countTree(Node root) {
+	public void processTree(Node root) {
 		for (Node node: new WikiNodeIterable(root)) {
 			if (node instanceof TextNode) {
-				countText(((TextNode) node).text());
+				processText(((TextNode) node).text());
 			}
 		}
 	}
 
-	public void countText(String text) {
+	public void processText(String text) {
 		String[] array = text.replaceAll("\\pP", " ").toLowerCase().split("\\s+");
 
 		for (int i=0; i<array.length; i++) {
 			String term = array[i];
-			countTerm(term);
+			incrementTermCount(term);
 		}
 	}
 ```
 
-*  `countElements` takes an `Elements` object, which is a collection of jsoup `Element` objects.  It iterates through the collection and calls `countTree` on each.
+*  `processElements` takes an `Elements` object, which is a collection of jsoup `Element` objects.  It iterates through the collection and calls `processTree` on each.
 
-*  `countTree` takes a jsoup `Node` that represents the root of a DOM tree.  It iterates through the tree to find the nodes that contain text; then it extracts the text and passes it to `countText`.
+*  `processTree` takes a jsoup `Node` that represents the root of a DOM tree.  It iterates through the tree to find the nodes that contain text; then it extracts the text and passes it to `processText`.
 
-*  `countText` takes a String that contains words, spaces, punctuation, etc.  It removes punctuation characters by replacing them with spaces, converts the remaining letters to lowercase, then splits the text into words.  Then it loops through the words it found and calls `countTerm` on each.
+*  `processText` takes a String that contains words, spaces, punctuation, etc.  It removes punctuation characters by replacing them with spaces, converts the remaining letters to lowercase, then splits the text into words.  Then it loops through the words it found and calls `incrementTermCount` on each.
 
 Finally, here's an example that demonstrates how `TermCounter` is used:
 
@@ -133,7 +133,7 @@ Finally, here's an example that demonstrates how `TermCounter` is used:
 	Elements paragraphs = wf.fetchWikipedia(url);
 
 	TermCounter counter = new TermCounter(url);
-	counter.countElements(paragraphs);
+	counter.processElements(paragraphs);
 	counter.printCounts();
 ```
 
