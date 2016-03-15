@@ -10,7 +10,7 @@
 
 ## Overview
 
-At this point we have built a basic Web crawler; the next piece we will work on is the **index**.  In the context of Web search, an index is a data structure that makes it possible to look up a search term and find the pages where that term appears.  In addition, we would like to know how many times the search term appears on each page, which will help indentify the pages most relevant to the term.
+At this point we have built a basic Web crawler; the next piece we will work on is the **index**.  In the context of Web search, an index is a data structure that makes it possible to look up a search term and find the pages where that term appears.  In addition, we would like to know how many times the search term appears on each page, which will help identify the pages most relevant to the term.
 
 For example, if a user submits the search terms "Java" and "programming", we would look up both search terms and get two sets of pages.  Pages with the word "Java" would include pages about the island of Java, the nickname for coffee, and the programming language.  Pages with the word "programming" would include pages about different programming languages, as well as other uses of the word.  By selecting pages with both terms, we hope to eliminate irrelevant pages and find the ones about Java programming.
 
