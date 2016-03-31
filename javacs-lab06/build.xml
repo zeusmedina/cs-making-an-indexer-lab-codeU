@@ -280,6 +280,7 @@
             <classpath refid="JavaCS.classpath"/>
         </junit>
     </target>
+    <target depends="test1, test2" name="test" />
     <target depends="IndexTest" name="test2" />
     <target name="IndexTest">
         <mkdir dir="${junit.output.dir}"/>
